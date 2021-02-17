@@ -3,10 +3,11 @@
 module.exports = function (app){
 
 
-// get last workout
+// // get last workout
 // app.get("/api/workouts", (req,res)=>{
 //   // what you want to get? a query to grab the documents from the workout collection
 //   db.Workouts.find({//find the last workout... }),
+
 // })
 
 
