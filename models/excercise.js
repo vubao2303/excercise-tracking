@@ -37,7 +37,11 @@ const UserWorkout = new Schema ({
       type:Number 
     }
 
-  }]
+  }],
+  totalWorkoutDuration: {
+    type:Number 
+  }
+
 });
 
 const Workouts = mongoose.model("Workouts", UserWorkout);

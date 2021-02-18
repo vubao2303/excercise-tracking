@@ -118,7 +118,7 @@
 const db = require("../models/excercise.js");
 module.exports = function (app){
   app.get("/api/workouts", (req,res)=>{
-    db.Workouts.find({})
+    db.find({})
     .then(dbWorkouts =>{
       res.json(dbWorkouts)
     })
@@ -128,8 +128,8 @@ module.exports = function (app){
   });
 
   app.put("/api/workouts/:id", (req,res)=>{
-    db.Workouts.findOneAndUpdate (
-      { _id: mongojs.ObjectId(params.id)
+    db.findOneAndUpdate (
+      { _id: req.params.id
       },
       {
         $push: { excersices: req.body }
@@ -145,7 +145,7 @@ module.exports = function (app){
 
   // create new WORKOUT 
     app.post("/api/workouts", ( { body },res)=>{
-      db.Workouts.create(body)
+      db.create(body)
       .then(dbWorkouts =>{
         res.json(dbWorkouts)
       })
@@ -154,10 +154,14 @@ module.exports = function (app){
       });
     })
 
-  // get workout in range 
+  // // get workout in range, this will show in the stats html
   app.get("/api/workouts/range", (req, res)=>{
     db.Workouts.find({})
     .then(dbWorkouts =>{
+      // find the total of last 7 worksout 
+      const totalWorkouts = 
+
+
       res.json(dbWorkouts)
     })
     .catch(err =>{
