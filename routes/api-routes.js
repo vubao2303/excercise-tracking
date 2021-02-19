@@ -35,7 +35,7 @@ const db = require("../models/excercise.js");
       db.create(body)
 
       .then(dbWorkouts =>{
-        console.log(dbWorkouts);
+        // console.log(dbWorkouts);
         res.json(dbWorkouts)
       })
       .catch(err =>{
@@ -59,7 +59,16 @@ const db = require("../models/excercise.js");
         res.json(err);
       });
   })
-
+  // router.get("/api/workouts/range", (req, res) => {
+  //   db.find({}, null, { sort: { day: 1 } })
+  //     .populate("exercises")
+  //     .then((dbWorkout) => {
+  //       res.json(dbWorkout);
+  //     })
+  //     .catch((err) => {
+  //       res.json(err);
+  //     });
+  // });
 
   // // get workout in range, this will show in the stats html
   // router.get("/api/workouts/range", (req, res)=>{

@@ -41,7 +41,7 @@ function generatePalette() {
 
 function populateChart(data) {
   console.log(data);
-  let durations = duration(data);
+  let durations = totalDuration(data);
   console.log (durations)
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
@@ -204,6 +204,20 @@ function populateChart(data) {
 //   });
 //   return durations;
 // };
+
+function totalDuration(data) {
+	let durations = [];
+
+	data.forEach((workout) => {
+		let totalDuration = 0;
+		workout.exercises.forEach((exercise) => {
+			totalDuration += exercise.duration;
+		});
+		durations.push(totalDuration);
+	});
+
+	return durations;
+}
 
 // add duration here because they didn't give it to you 
 function duration(data) {
