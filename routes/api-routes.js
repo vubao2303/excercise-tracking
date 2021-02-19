@@ -5,6 +5,7 @@ const db = require("../models/excercise.js");
   router.get("/api/workouts", (req,res)=>{
     db.find({}) //
     .then(dbWorkouts =>{
+      
       res.json(dbWorkouts)
     })
     .catch(err =>{
@@ -12,13 +13,24 @@ const db = require("../models/excercise.js");
     });
   });
 
+  db.aggregate( [
+    {
+      $addFields: {
+        totalDuration: { $sum: "$duration" } ,
+        totalWeight: { $sum: "$weight" },
+        totalDistance: { $sum: "$distance"}
+      }
+    }
+ ] )
+
+
   // this is where it get the info from new workout and send it up to clients
   router.put("/api/workouts/:id", (req,res)=>{
     db.findOneAndUpdate (
       { _id: req.params.id
       },
       {
-        $push: { exercises: req.body }
+        $push: { exercises: req.body  }
       }, 
       { new: true, upsert: true })
       .then(dbWorkouts =>{
@@ -29,11 +41,14 @@ const db = require("../models/excercise.js");
       });   
   });
 
+  
+
+
+
   // create new WORKOUT 
     router.post("/api/workouts", ( { body },res)=>{
       console.log(body);
       db.create(body)
-
       .then(dbWorkouts =>{
         // console.log(dbWorkouts);
         res.json(dbWorkouts)
@@ -42,9 +57,6 @@ const db = require("../models/excercise.js");
         res.json(err);
       });
     })
-
-
-
 
   // Get last 7 workouts.
   router.get('/api/workouts/range', (req, res) => {
@@ -59,6 +71,12 @@ const db = require("../models/excercise.js");
         res.json(err);
       });
   })
+  module.exports = router
+
+
+
+
+
   // router.get("/api/workouts/range", (req, res) => {
   //   db.find({}, null, { sort: { day: 1 } })
   //     .populate("exercises")
@@ -91,7 +109,6 @@ const db = require("../models/excercise.js");
   //   });
   // });
 
-  module.exports = router
 
 // // BTYRING 
 
