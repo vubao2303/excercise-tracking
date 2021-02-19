@@ -21,15 +21,28 @@ function generatePalette() {
   return arr;
 }
 
+// function calculateTotalWeight(data) {
+//   let totals = [];
+
+//   data.forEach((workout) => {
+//     const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
+//       if (type === 'resistance') {
+//         return total + weight;
+//       } else {
+//         return total;
+//       }
+//     }, 0);
+
+//     totals.push(workoutTotal);
+//   });
+
+//   return totals;
+// }
+
 function populateChart(data) {
-  console.log (data)
-  let total = data.map(({ exercises }) => exercises);
-  let durations = total.map(({duration}) =>{
-  if(duration){
-    return duration;
-  }
-});
-  console.log(durations)
+  console.log(data);
+  let durations = duration(data);
+  console.log (durations)
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
   const colors = generatePalette();
@@ -178,7 +191,59 @@ function populateChart(data) {
       },
     },
   });
+};
+
+// // add duration here because they didn't give it 
+// function duration(data) {
+//   let durations = [];
+
+//   data.forEach(workout => {
+//     workout.exercises.forEach(exercise => {
+//       durations.push(exercise.duration);
+//     });
+//   });
+//   return durations;
+// };
+
+// add duration here because they didn't give it to you 
+function duration(data) {
+  let durations = [];
+
+  data.forEach((workout) => {
+    const totalDuration = workout.exercises.reduce((total, { type, duration }) => {
+      if (type === 'cardio') {
+        return total + duration;
+      } else {
+        return total;
+      }
+    }, 0);
+
+    durations.push(totalDuration);
+  });
+
+  return durations;
 }
+// ends Btrying
+
+// add duration here because they didn't give it to you 
+// function calculateTotalWeight(data) {
+//   let durations = [];
+
+//   data.forEach((workout) => {
+//     const totalDuration = workout.exercises.reduce((total, { type, duration }) => {
+//       if (type === 'cardio') {
+//         return total + duration;
+//       } else {
+//         return total;
+//       }
+//     }, 0);
+
+//     duration.push(totalDuration);
+//   });
+
+//   return durations;
+// }
+// ends Btrying
 
 function calculateTotalWeight(data) {
   let totals = [];

@@ -1,5 +1,5 @@
  // require workouts model form model 
- const router = require("express").Router()
+const router = require("express").Router()
 const db = require("../models/excercise.js");
 // module.exports = function (app){
   router.get("/api/workouts", (req,res)=>{
@@ -43,30 +43,118 @@ const db = require("../models/excercise.js");
       });
     })
 
+
+
+
+  // Get last 7 workouts.
+  router.get('/api/workouts/range', (req, res) => {
+    db.find({}).limit(7)
+      .then(sevenWorkouts => {
+        console.log("banana");
+        console.log(sevenWorkouts);
+        res.json(sevenWorkouts);
+      })
+      .catch(err => {
+        console.log(err);
+        res.json(err);
+      });
+  })
+
+
   // // get workout in range, this will show in the stats html
-  router.get("/api/workouts/range", (req, res)=>{
-    db.find({})
-    .then(dbWorkouts =>{
-      // // find the total of last 7 worksout 
-      // const totalWorkouts = 7 
+  // router.get("/api/workouts/range", (req, res)=>{
+  //   db.find({})
+  //   .then(dbWorkouts =>{
+  //     // // find the total of last 7 worksout 
+  //     // const totalWorkouts = 7 
 
-      //  let seven =[];
-      //  for (i=0; i < 7; i++)
-      // if (dbWorkouts)
-      // seven.push(dbworkoutout[i])
-      // res.json(seven)
+  //     //  let seven =[];
+  //     //  for (i=0; i < 7; i++)
+  //     // if (dbWorkouts)
+  //     // seven.push(dbworkoutout[i])
+  //     // res.json(seven)
 
-      res.json(dbWorkouts)
+  //     res.json(dbWorkouts)
 
-    })
-    .catch(err =>{
-      res.json(err);
-    });
-  });
+  //   })
+  //   .catch(err =>{
+  //     res.json(err);
+  //   });
+  // });
 
   module.exports = router
 
-// BTYRING 
+// // BTYRING 
+
+// // require workouts model form model 
+// const db = require("../models/excercise.js");
+// module.exports = function (app){
+//   app.get("/api/workouts", (req,res)=>{
+//     db.find({})
+//     .then(dbWorkouts =>{
+//       res.json(dbWorkouts)
+//     })
+//     .catch(err =>{
+//       res.json(err);
+//     });
+//   });
+
+//   app.put("/api/workouts/:id", (req,res)=>{
+//     db.findOneAndUpdate (
+//       { _id: req.params.id
+//       },
+//       {
+//         $push: { excersices: req.body }
+//       }, 
+//       { new: true })
+//       .then(dbWorkouts =>{
+//         res.json(dbWorkouts)
+//       })
+//       .catch(err =>{
+//         res.json(err);
+//       });   
+//   });
+
+//   // create new WORKOUT 
+//     app.post("/api/workouts", ( { body },res)=>{
+//       db.create(body)
+//       .then(dbWorkouts =>{
+//         res.json(dbWorkouts)
+//       })
+//       .catch(err =>{
+//         res.json(err);
+//       });
+//     })
+
+//   // // get workout in range, this will show in the stats html
+//   app.get("/api/workouts/range", (req, res)=>{
+//     db.find({})
+//     .then(dbWorkouts =>{
+      
+
+//       res.json(dbWorkouts)
+//     })
+//     .catch(err =>{
+//       res.json(err);
+//     });
+//   });
+
+// }
+
+// 100th try 
+
+
+// // adds a dynamically-created property to schema
+// db.virtual("totalDuration").get(function () {
+//   //this.exercises is going to be an array of exercises that match the users query.
+//   console.log(this.exercises);
+
+//   this.exercises.forEach(element => {
+//     console.log(element.duration);
+//   });
+//   //The amount that will be sent to the client is returned here. (I set it to 0 for now.)
+//   return 0;
+// });
 
 // // require workouts model form model 
 // const db = require("../models/excercise");
