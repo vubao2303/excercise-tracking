@@ -2,10 +2,34 @@
 const router = require("express").Router()
 const db = require("../models/excercise.js");
 // module.exports = function (app){
-  router.get("/api/workouts", (req,res)=>{
-    db.find({}) //
-    .then(dbWorkouts =>{
+  // router.get("/api/workouts", (req,res)=>{
+  //   db.find({}) //
+  //   .then(dbWorkouts =>{
       
+  //     res.json(dbWorkouts)
+  //   })
+  //   .catch(err =>{
+  //     res.json(err);
+  //   });
+  // // });
+  // db.aggregate( [
+  //   {
+  //     $addFields: {
+  //       totalDuration: { $sum: "$exercises.duration" } 
+  //       // totalWeight: { $sum: "$weight" },
+  //       // totalDistance: { $sum: "$distance"}
+  //     }
+  //   }
+
+  router.get("/api/workouts", (req,res)=>{
+  db.aggregate( [
+    {
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" } 
+      }
+    }
+ ] ).then(dbWorkouts =>{
+       console.log (dbWorkouts)
       res.json(dbWorkouts)
     })
     .catch(err =>{
@@ -13,15 +37,6 @@ const db = require("../models/excercise.js");
     });
   });
 
-  db.aggregate( [
-    {
-      $addFields: {
-        totalDuration: { $sum: "$duration" } ,
-        totalWeight: { $sum: "$weight" },
-        totalDistance: { $sum: "$distance"}
-      }
-    }
- ] )
 
 
   // this is where it get the info from new workout and send it up to clients
@@ -40,9 +55,6 @@ const db = require("../models/excercise.js");
         res.json(err);
       });   
   });
-
-  
-
 
 
   // create new WORKOUT 
