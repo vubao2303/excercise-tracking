@@ -1,11 +1,9 @@
 # excercise-tracking
 An Excerise Tracker application that is built using MongoDB. The application allows a user to track their workout routine by adding exercise types, resistance or cardio, followed by data for each including sets, reps, distance, etc. The user can add multiple exercises to one workout, and their statistics will be generated showing the total duration, total reps, total sets. Data for the last 7 workouts will also be displayed which provide another visual representation in addition to their physique to track progress over time.
 
-## Demo-video 
 
-[Demo Video]()  
-
-![Site Picture]()
+![Site Picture](./public/lastworkout.png)
+![Site Picture](./public/charts.png)
 
 
 ## Heroku-Deployed
@@ -58,32 +56,93 @@ An Excerise Tracker application that is built using MongoDB. The application all
 
 ## Code Snippet
 Install npm package 
-npm install express
+npm install express mongoose morgan 
 
 Required variables 
 ``` Javascript
-
+const express = require("express");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 ```
 
 Sets up the Express app to handle data parsing
 ``` Javascript
+const app = express();
 
+app.use(logger("dev"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(express.static("public"));
 ```
 
 Set routes to handle when user "visit" the page 
 ``` Javascript
-
+require("./routes/html-routes.js")(app);
+app.use(require("./routes/api-routes.js"));
 ```
+
+
+Use MongoDB aggregate function to dynamically add up and return the total duration for each workout
+``` Javascript 
+router.get("/api/workouts", (req,res)=>{
+  db.aggregate( [
+    { $addFields: {
+        totalDuration: { $sum: "$exercises.duration" } 
+      }
+    }
+ ] ).then(dbWorkouts =>{
+      res.json(dbWorkouts)
+    })
+    .catch(err =>{
+      res.json(err);
+    });
+  });
+```
+
 
 do this because 
 ``` Javascript 
+const mongoose = require("mongoose");
 
+const Schema = mongoose.Schema;
+
+const UserWorkout = new Schema ({
+    day: {type:Date,
+    default:Date.now 
+  },
+
+  exercises:[{
+    type:{type: String,trim: true,require: "type is required" },
+    name: {type: String,trim: true,require: "name of excercise is required" ,
+    duration: {type: Number },
+    weight: {type: Number},
+    reps: {type: Number},
+    sets:{type:Number }, 
+    distance: {type: Number}
+  }],
+  totalWorkoutDuration: {
+    type:Number 
+  }
+});
+
+const Workouts = mongoose.model("Workouts", UserWorkout);
+// workouts is my "table name"
+// USerworkout is my value of that schema
+
+module.exports = Workouts;
 ```
 ## Technologies Used
 
 ||||||
 |:-:|:-:|:-:|:-:|:-:|
-|[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) |[Node.js](https://nodejs.org/en/) |[Express](https://expressjs.com/)| [Heroku](https://heroku.com/) | [GitHub](https://github.com/)
+|[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | [Heroku](https://heroku.com/) | [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) |[Node.js](https://nodejs.org/en/) 
+
+||||||
+|:-:|:-:|:-:|:-:|:-:|
+|[Express](https://expressjs.com/)| [GitHub](https://github.com/) | [Mongoose](https://mongoosejs.com/docs/defaults.html) | [Morgan](https://www.npmjs.com/package/morgan)
+
 
 <br>
 
