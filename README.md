@@ -8,7 +8,7 @@ An Excerise Tracker application that is built using MongoDB. The application all
 
 ## Heroku-Deployed
 
-[Deployed Link]()  
+[Deployed Link](https://b-workout.herokuapp.com/)  
 
 # Table of Contents 
 
