@@ -102,7 +102,7 @@ router.get("/api/workouts", (req,res)=>{
 ```
 
 
-do this because 
+Create database model using mongoose Schema 
 ``` Javascript 
 const mongoose = require("mongoose");
 
@@ -128,20 +128,17 @@ const UserWorkout = new Schema ({
 });
 
 const Workouts = mongoose.model("Workouts", UserWorkout);
-// workouts is my "table name"
-// USerworkout is my value of that schema
-
 module.exports = Workouts;
 ```
 ## Technologies Used
 
 ||||||
 |:-:|:-:|:-:|:-:|:-:|
-|[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | [Heroku](https://heroku.com/) | [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) |[Node.js](https://nodejs.org/en/) 
+|[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | [Heroku](https://heroku.com/) | [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)  | [GitHub](https://github.com/)
 
-||||||
-|:-:|:-:|:-:|:-:|:-:|
-|[Express](https://expressjs.com/)| [GitHub](https://github.com/) | [Mongoose](https://mongoosejs.com/docs/defaults.html) | [Morgan](https://www.npmjs.com/package/morgan)
+|||||
+|:-:|:-:|:-:|:-:|
+|[Express](https://expressjs.com/) |[Node.js](https://nodejs.org/en/) | [Mongoose](https://mongoosejs.com/docs/defaults.html) | [Morgan](https://www.npmjs.com/package/morgan)
 
 
 <br>
