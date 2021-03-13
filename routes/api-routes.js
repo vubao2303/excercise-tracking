@@ -1,25 +1,6 @@
  // require workouts model form model 
 const router = require("express").Router()
 const db = require("../models/excercise.js");
-// module.exports = function (app){
-  // router.get("/api/workouts", (req,res)=>{
-  //   db.find({}) //
-  //   .then(dbWorkouts =>{
-      
-  //     res.json(dbWorkouts)
-  //   })
-  //   .catch(err =>{
-  //     res.json(err);
-  //   });
-  // // });
-  // db.aggregate( [
-  //   {
-  //     $addFields: {
-  //       totalDuration: { $sum: "$exercises.duration" } 
-  //       // totalWeight: { $sum: "$weight" },
-  //       // totalDistance: { $sum: "$distance"}
-  //     }
-  //   }
 
   router.get("/api/workouts", (req,res)=>{
   db.aggregate( [
@@ -36,8 +17,6 @@ const db = require("../models/excercise.js");
       res.json(err);
     });
   });
-
-
 
   // this is where it get the info from new workout and send it up to clients
   router.put("/api/workouts/:id", (req,res)=>{
@@ -61,6 +40,7 @@ const db = require("../models/excercise.js");
     router.post("/api/workouts", ( { body },res)=>{
       console.log(body);
       db.create(body)
+      
       .then(dbWorkouts =>{
         // console.log(dbWorkouts);
         res.json(dbWorkouts)
@@ -305,3 +285,4 @@ const db = require("../models/excercise.js");
 //     }//cái này là đóng cùa cái function err,data
 // )cái này là đóng cùa cái sự gì đó mình làm ở line 65
 // )} cái này là đóng của req,res 
+

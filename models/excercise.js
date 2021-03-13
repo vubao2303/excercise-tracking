@@ -46,7 +46,7 @@ const UserWorkout = new Schema ({
   }
 
 });
-
+// userWorkout.medthod.gettotalworkout = excerise.duration.reduce()
 const Workouts = mongoose.model("Workouts", UserWorkout);
 // workouts is my "table name"
 // USerworkout is my value of that schema
@@ -54,4 +54,4 @@ const Workouts = mongoose.model("Workouts", UserWorkout);
 module.exports = Workouts;
 
 // having one model 
-// with all the collums 
+// with all the collums w

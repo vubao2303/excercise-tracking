@@ -30,12 +30,6 @@ mongoose.connect(
 require("./routes/html-routes.js")(app);
 app.use(require("./routes/api-routes.js"));
 
-// code here 
-
-
-
-// db.User.find({})
-
 // Start the server
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
